@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Request;
 use Illuminate\Support\Facades\Broadcast;
 
 /*
@@ -13,6 +14,8 @@ use Illuminate\Support\Facades\Broadcast;
 |
 */
 
-Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
-    return (int) $user->id === (int) $id;
+Broadcast::channel('Campus.{req}', function ($user, $request_id) {
+    $request = Request::find($request_id);
+    return $user->id === $request->user_id
+        || $user->id === $request->class_offer->teacher->user_id;
 });
