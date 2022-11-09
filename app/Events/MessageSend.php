@@ -36,6 +36,6 @@ class MessageSend implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('Campus.'.$this->message->messageable_id);
+        return new PrivateChannel('Campus.' . $this->message->messageable_id);
     }
 }

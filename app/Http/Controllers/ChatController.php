@@ -25,7 +25,7 @@ class ChatController extends Controller
         $message = new Message($request->all());
         $message->messageable_type = 'App\Models\ModelsRequest';
         $message->user_id = Auth::id();
-
+        dd($message);
         $message->save();
         // イベントを発火します
         event(new MessageSend($message));

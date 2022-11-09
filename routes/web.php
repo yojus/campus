@@ -66,5 +66,6 @@ Route::resource('class_offers.requests', RequestController::class)
     ->middleware('can:user');
 
 Route::resource('requests.messages', ChatController::class)
+    ->parameters(['requests' => 'req'])
     ->only(['index', 'store', 'destroy'])
     ->middleware('auth');

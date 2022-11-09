@@ -14,16 +14,16 @@
                                 <circle cx="8" cy="8" r="8" fill="currentColor"></circle>
                             </svg>
                         </span>
-                        {{-- 企業アカウントの画像 --}}
-                        <img src="{{ $request->class_offer->teacher->profile_photo_url }}" alt=""
+                        {{-- 講師アカウントの画像 --}}
+                        <img src="{{ $req->classOffer->teacher->profile_photo_url }}" alt=""
                             class="w-10 sm:w-16 h-10 sm:h-16 rounded-full">
                     </div>
-                    {{-- 企業アカウントの名前 --}}
+                    {{-- 講師アカウントの名前 --}}
                     <div class="flex flex-col leading-tight">
                         <div class="text-2xl mt-1 flex items-center">
-                            <span class="text-gray-700 mr-3">{{ $request->class_offer->teacher->name }}</span>
+                            <span class="text-gray-700 mr-3">{{ $req->classOffer->teacher->name }}</span>
                         </div>
-                        {{-- <span class="text-lg text-gray-600">{{  $request->class_offer->teacher->user->name }}</span> --}}
+                        {{-- <span class="text-lg text-gray-600">{{  $req->classOffer->teacher->user->name }}</span> --}}
                     </div>
                 @endcan
                 @can('teacher')
@@ -35,13 +35,13 @@
                             </svg>
                         </span>
                         {{-- ユーザーアカウントの画像 --}}
-                        <img src="{{ $request->user->profile_photo_url }}" alt=""
+                        <img src="{{ $req->user->profile_photo_url }}" alt=""
                             class="w-10 sm:w-16 h-10 sm:h-16 rounded-full">
                     </div>
                     {{-- ユーザーアカウントの名前 --}}
                     <div class="flex flex-col leading-tight">
                         <div class="text-2xl mt-1 flex items-center">
-                            <span class="text-gray-700 mr-3">{{ $request->user->name }}</span>
+                            <span class="text-gray-700 mr-3">{{ $req->user->name }}</span>
                         </div>
                         {{-- <span class="text-lg text-gray-600">Junior Developer</span> --}}
                     </div>
@@ -148,7 +148,7 @@
                     </button>
                 </span>
                 <input type="hidden" id="current_user_id" name="current_user_id" value="{{ Auth::user()->id }}">
-                <input type="hidden" id="messageable_id" name="messageable_id" value="{{ $request->id }}">
+                <input type="hidden" id="messageable_id" name="messageable_id" value="{{ $req->id }}">
                 <input type="text" placeholder="メッセージを入力" id="message" name="message"
                     class="w-full focus:outline-none focus:placeholder-gray-400 text-gray-600 placeholder-gray-600 pl-12 bg-gray-200 rounded-md py-3">
                 <div class="absolute right-0 items-center inset-y-0 hidden sm:flex">

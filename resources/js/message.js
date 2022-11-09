@@ -1,5 +1,4 @@
-import { message } from "laravel-mix/src/Log";
-// 最初の HTML 文書の読み込みと解析が完了したした時点で発生するイベント
+// 最初の HTML 文書の読み込みと解析が完了した時点で発生するイベント
 window.addEventListener('DOMContentLoaded', function () {
     const submit = document.getElementById("submit");
     const el = document.getElementById('messages');

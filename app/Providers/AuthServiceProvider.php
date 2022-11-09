@@ -35,9 +35,9 @@ class AuthServiceProvider extends ServiceProvider
             return !(isset($user->teacher));
         });
 
-        Gate::define('message', function (User $user, Request $request) {
-            return $user->id === $request->user_id
-                || $user->id === $request->class_offer->teacher->user_id;
+        Gate::define('message', function (User $user, Request $req) {
+            return $user->id === $req->user_id
+                || $user->id === $req->classOffer->teacher->user_id;
         });
     }
 }

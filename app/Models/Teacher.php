@@ -31,7 +31,7 @@ class Teacher extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function classOffer()
+    public function classOffers()
     {
         return $this->hasMany(ClassOffer::class);
     }
