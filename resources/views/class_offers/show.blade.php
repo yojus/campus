@@ -3,7 +3,7 @@
 
         <x-flash-message :message="session('notice')" />
         <x-validation-errors :errors="$errors" />
-
+        <link rel="stylesheet" href="{{ asset('css/top.css') }}">
         <article class="mb-2">
             <div class="flex justify-between text-sm">
                 <div class="flex item-center">
@@ -14,7 +14,7 @@
                 <div>
                     <span>on {{ $class_offer->created_at->format('Y-m-d') }}</span>
                     <span class="inline-block mx-1">|</span>
-                    <span>{{ $class_offer->classOfferViews->count() }} views</span>
+                    <b>{{ $class_offer->classOfferViews->count() }} views</b>
                 </div>
             </div>
             <div class="flex mt-1 mb-3">
@@ -30,6 +30,26 @@
             <p class="text-gray-700 text-base tracking-wide"><b>出身校: </b>{!! nl2br(e($class_offer->school)) !!}</p>
             <p class="text-gray-700 text-base tracking-wide"><b>時給: </b>{!! nl2br(e($class_offer->money)) !!}</p>
             <p class="text-gray-700 text-base tracking-wide"><b>エリア: </b>{!! nl2br(e($class_offer->area)) !!}</p>
+            <div class="flex flex-col sm:flex-row items-center sm:justify-first text-center my-4">
+                @auth
+                    @if ($favorite)
+                        <form action="{{ route('class_offers.favorites.destroy', [$class_offer, $favorite]) }}"
+                            method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <input type="image" src="/images/heart.jpeg" alt="" width="30" height="30">
+                        </form>
+                    @else
+                        <form action="{{ route('class_offers.favorites.store', $class_offer) }}" method="POST">
+                            @csrf
+                            <input type="image" src="/images/gray_heart.jpeg" alt="" width="30"
+                                height="30">
+                        </form>
+                    @endif
+                @endauth
+                <b>{{ $class_offer->favorites->count() }}</b>
+            </div>
+
         </article>
         <div class="flex flex-col sm:flex-row items-center sm:justify-end text-center my-4">
             @can('user')
@@ -117,7 +137,6 @@
                 @endif
             @endforeach
         </div>
-
         @if (!empty($requests))
             <hr>
             <h2 class="flex justify-center font-bold text-lg my-4">リクエスト一覧</h2>
@@ -234,7 +253,8 @@
                         </path>
                     </svg>
                 </button>
-                <form method="post" action="{{ route('class_offers.messages.store', $class_offer) }}" id="sendMessage">
+                <form method="post" action="{{ route('class_offers.messages.store', $class_offer) }}"
+                    id="sendMessage">
                     @csrf
                 </form>
             </div>

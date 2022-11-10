@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\ClassOfferController;
+use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\RequestController;
 use App\Http\Controllers\UserController;
@@ -52,6 +53,11 @@ Route::resource('class_offers', ClassOfferController::class)
 Route::resource('class_offers.messages', MessageController::class)
     ->only(['store', 'destroy'])
     ->middleware('auth');
+
+Route::resource('class_offers.favorites', FavoriteController::class)
+    ->only(['store', 'destroy'])
+    ->middleware('auth')
+    ;
 
 Route::patch('/class_offers/{class_offer}/requests/{request}/approval', [RequestController::class, 'approval'])
     ->name('class_offers.requests.approval')

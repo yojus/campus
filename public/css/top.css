@@ -7,3 +7,17 @@
     background-attachment: fixed;
     background-size: cover;
 }
+
+.heart-image {
+    content: url(/images/heart.jpeg);
+    width: 30px;
+    height: 30px;
+}
+
+.emptyheart-image {
+    background-image: url(/images/empty_heart.png);
+    background-position: center center;
+    background-repeat: no-repeat;
+    /* background-attachment: fixed; */
+    background-size: cover;
+}

@@ -6,6 +6,7 @@ use App\Models\ClassOffer;
 use App\Models\Subject;
 use App\http\Requests\ClassOfferRequest;
 use App\Models\ClassOfferView;
+use App\Models\Favorite;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -81,7 +82,12 @@ class ClassOfferController extends Controller
 
         $messages = $class_offer->messages->load('user');
 
-        return view('class_offers.show', compact('class_offer', 'request', 'requests', 'messages'));
+        $favorite = Favorite::with('classOffer')
+                ->where('user_id', auth()->user()->id)
+                ->where('class_offer_id', $class_offer->id)
+                ->first();
+
+        return view('class_offers.show', compact('class_offer', 'request', 'requests', 'messages', 'favorite'));
     }
 
     /**

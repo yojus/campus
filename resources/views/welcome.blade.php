@@ -416,7 +416,7 @@
                 <div
                     class="w-4/5 flex flex-auto flex-col md:flex-row items-center justify-center p-10 xl:p-32 overflow-hidden">
                     <div class="w-4/5 z-10">
-                        <div class="tracking-wider text-5xl sm:text-6xl xl:text-8xl font-bold leading-tight mb-6">Campus
+                        <div class="font-mono hover:font-serif tracking-widest text-5xl sm:text-6xl xl:text-8xl font-bold leading-tight mb-6">Campus
                         </div>
                         <div class="font-bold">~教育型マッチングサービス~</div>
                     </div>

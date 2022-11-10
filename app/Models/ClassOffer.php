@@ -89,4 +89,9 @@ class ClassOffer extends Model
     {
         return $this->morphMany(Message::class, 'messageable');
     }
+
+    public function favorites()
+    {
+        return $this->hasMany(Favorite::class);
+    }
 }
