@@ -10,7 +10,7 @@ window.addEventListener('DOMContentLoaded', function () {
         const message = document.getElementById("message");
         // 非同期でPOST送信をするHTTP Clientライブラリのaxios
         axios.post(
-            `/entries/${messageable_id}/messages`,
+            `/requests/${messageable_id}/messages`,
             {
                 messageable_id: messageable_id,
                 message: message.value,
@@ -93,7 +93,7 @@ function deleteMessage(e) {
     const csrf = document.head.querySelector('[name="csrf-token"]').content;
     // 非同期でDELETE送信をするHTTP Clientライブラリのaxios
     axios.delete(
-        `/entries/${messageable_id}/messages/${message_id}`
+        `/requests/${messageable_id}/messages/${message_id}`
     )
     // メッセージのHTMLを削除する
     message_el.remove();

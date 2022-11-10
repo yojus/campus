@@ -39,48 +39,46 @@
             </div>
             <div class="w-full">
                 @foreach ($class_offers as $class_offer)
-                    <a href="{{ route('class_offers.show', $class_offer) }}"
-                        class="bg-white w-full px-10 py-8 hover:shadow-2xl transition duration-500 group block max-w-xs mx-auto rounded-lg p-6 bg-white ring-1 ring-slate-900/5 shadow-lg space-y-3 hover:bg-sky-500 hover:ring-sky-500">
-                        <div class="mt-4">
-                            <div class="flex justify-between text-sm items-center mb-4">
-                                <div class="border border-gray-900 px-2 h-7 leading-7 rounded-full">
-                                    {{ $class_offer->subject->name }}
+                    <div class="bg-white w-full px-10 py-8 hover:shadow-2xl transition duration-500">
+                        <a href="{{ route('class_offers.show', $class_offer) }}"
+                            class="group block max-w-xs mx-auto rounded-lg p-6 bg-white ring-1 ring-slate-900/5 shadow-lg space-y-3 hover:bg-sky-500 hover:ring-sky-500">
+                            <div class="mt-4">
+                                <div class="flex justify-between text-sm items-center mb-4">
+                                    <div class="border border-gray-900 px-2 h-7 leading-7 rounded-full">
+                                        {{ $class_offer->subject->name }}
+                                    </div>
+                                    <div class="text-gray-700 text-sm text-right">
+                                        <span
+                                            class="font-normal ml-2">{{ $class_offer->created_at->diffForHumans() }}</span>
+                                        <span class="inline-block mx-1">|</span>
+                                        <span>{{ $class_offer->ClassOfferViews->count() }} views</span>
+                                    </div>
                                 </div>
-                                <div class="text-gray-700 text-sm text-right">
-                                    <span
-                                        class="font-normal ml-2">{{ $class_offer->created_at->diffForHumans() }}</span>
-                                    <span class="inline-block mx-1">|</span>
-                                    <span>{{ $class_offer->ClassOfferViews->count() }} views</span>
-                                </div>
-                            </div>
-                            </h2>
-                            {{-- <p class="mt-4 text-md text-gray-600">
-                                {{ Str::limit($class_offer->description, 50,  '...') }}
-                            </p> --}}
-                            <div class="flex justify-between items-center">
-                                <div class="mt-4 flex items-center space-x-4 py-6">
+                                <div class="flex justify-between items-center">
+                                    <div class="mt-4 flex items-center space-x-4 py-6">
                                         @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
                                             <img class="h-20 w-20 rounded-full object-cover"
                                                 src="{{ $class_offer->teacher->profile_photo_url }}"
                                                 alt="{{ $class_offer->school }}" />
                                         @endif
-                                    <div class="text-2xl font-semibold">
-                                        出身校: {{ $class_offer->school }}
-                                    </div>
-                                    <br>
-                                    <div class="text-2xl font-semibold">
-                                        エリア: {{ $class_offer->area }}
+                                        <div class="text-2xl font-semibold">
+                                            出身校: {{ $class_offer->school }}
+                                        </div>
+                                        <br>
+                                        <div class="text-2xl font-semibold">
+                                            エリア: {{ $class_offer->area }}
+                                        </div>
                                     </div>
                                 </div>
+                                <div class="text-lg font-semibold">
+                                    {{ $class_offer->teacher->name }}
+                                </div>
+                                <p class="mt-4 text-md text-gray-600">
+                                    <span>自己紹介</span><br>{{ Str::limit($class_offer->teacher->profile, 50, '...') }}
+                                </p>
                             </div>
-                            <div class="text-lg font-semibold">
-                                {{ $class_offer->teacher->name }}
-                            </div>
-                            <p class="mt-4 text-md text-gray-600">
-                                <span>自己紹介</span><br>{{ Str::limit($class_offer->teacher->profile, 50, '...') }}
-                            </p>
-                        </div>
-                    </a>
+                        </a>
+                    </div>
                     <hr>
                 @endforeach
                 <div class="block mt-3">

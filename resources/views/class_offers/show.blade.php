@@ -4,6 +4,7 @@
         <x-flash-message :message="session('notice')" />
         <x-validation-errors :errors="$errors" />
         <link rel="stylesheet" href="{{ asset('css/top.css') }}">
+        
         <article class="mb-2">
             <div class="flex justify-between text-sm">
                 <div class="flex item-center">
@@ -25,7 +26,7 @@
             </div>
             <h3 class="text-lg h-10 leading-10">{{ $class_offer->teacher->name }}</h3>
             <p class="tracking-wide underline underline-offset-8"><b>自己紹介</b><br>
-                <textarea style="width: 100%; height:150px">{{ $class_offer->teacher->profile }}</textarea>
+                <textarea style="width: 100%; height:150px" readonly>{{ $class_offer->teacher->profile }}</textarea>
             </p>
             <p class="text-gray-700 text-base tracking-wide"><b>出身校: </b>{!! nl2br(e($class_offer->school)) !!}</p>
             <p class="text-gray-700 text-base tracking-wide"><b>時給: </b>{!! nl2br(e($class_offer->money)) !!}</p>

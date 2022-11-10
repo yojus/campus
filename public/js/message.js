@@ -14,7 +14,7 @@ window.addEventListener('DOMContentLoaded', function () {
   submit.addEventListener('click', function () {
     var message = document.getElementById("message");
     // 非同期でPOST送信をするHTTP Clientライブラリのaxios
-    axios.post("/entries/".concat(messageable_id, "/messages"), {
+    axios.post("/requests/".concat(messageable_id, "/messages"), {
       messageable_id: messageable_id,
       message: message.value
     });
@@ -65,7 +65,7 @@ function deleteMessage(e) {
   var message_el = e.target.parentNode.parentNode;
   var csrf = document.head.querySelector('[name="csrf-token"]').content;
   // 非同期でDELETE送信をするHTTP Clientライブラリのaxios
-  axios["delete"]("/entries/".concat(messageable_id, "/messages/").concat(message_id));
+  axios["delete"]("/requests/".concat(messageable_id, "/messages/").concat(message_id));
   // メッセージのHTMLを削除する
   message_el.remove();
 }

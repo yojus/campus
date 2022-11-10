@@ -17,7 +17,7 @@ class ClassOfferController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index(ClassOffer $class_offer, Request $request)
     {
         $params = $request->query();
         $class_offers = ClassOffer::search($params)->with(['teacher', 'subject'])->order($params)->paginate(5);

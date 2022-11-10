@@ -23,9 +23,8 @@ class ChatController extends Controller
         Gate::authorize('message', $req);
 
         $message = new Message($request->all());
-        $message->messageable_type = 'App\Models\ModelsRequest';
+        $message->messageable_type = 'App\Models\Request';
         $message->user_id = Auth::id();
-        dd($message);
         $message->save();
         // イベントを発火します
         event(new MessageSend($message));
@@ -36,6 +35,6 @@ class ChatController extends Controller
     {
         Gate::authorize('message', $req);
         $message->delete();
-        return response()->json(['message' => '投稿しました。']);
+        return response()->json(['message' => '投稿しました']);
     }
 }
