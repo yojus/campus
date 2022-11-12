@@ -60,18 +60,27 @@
             @csrf
             @method('PUT')
             <div class="mb-4">
-                <label class="block text-black mb-2" for="subject_id">
+                <label class="block text-black mb-2 font-bold" for="subject_id">
                     担当科目
                 </label>
-                <div
-                    class="text-black border-gray-300 focus:border-indigo-300 focus:ring focus:ring-pink-600 w-full py-2 px-3">
-                    @foreach ($subjects as $subject)
-                        <input type="checkbox" class="appearance-none checked:bg-slate-900 indeterminate:bg-slate-200" name="subject_id" value="{{ $subject->id }}" {{ $subject->id == old('subject_id', $class_offer->subject_id) ? "checked" : ""}}>{{ $subject->name }}
-                    @endforeach
-                </div>
+                @foreach ($subjects as $subject)
+                    <div
+                        class="text-black border-gray-300 focus:border-indigo-300 focus:ring focus:ring-pink-600 w-full py-2 px-3">
+                        @if ($class_offer->subjects->contains('id', $subject->id))
+                            <input type="checkbox"
+                                class="appearance-none checked:bg-slate-900 indeterminate:bg-slate-200"
+                                name="subject_id[]" value="{{ $subject->id }}" checked>
+                        @else
+                            <input type="checkbox"
+                                class="appearance-none checked:bg-slate-900 indeterminate:bg-slate-200"
+                                name="subject_id[]" value="{{ $subject->id }}">
+                        @endif
+                        {{ $subject->name }}
+                    </div>
+                @endforeach
             </div>
             <div class="mb-4">
-                <label class="block text-black mb-2" for="school">
+                <label class="block text-black mb-2 font-bold" for="school">
                     出身校
                 </label>
                 <input type="text" name="school"
@@ -79,7 +88,7 @@
                     placeholder="出身校" value="{{ old('school', $class_offer->school) }}">
             </div>
             <div class="mb-4">
-                <label class="block text-black mb-2" for="money">
+                <label class="block text-black mb-2 font-bold" for="money">
                     時給
                 </label>
                 <input type="text" name="money"
@@ -87,7 +96,7 @@
                     placeholder="時給" value="{{ old('money', $class_offer->money) }}">
             </div>
             <div class="mb-4">
-                <label class="block text-black mb-2" for="area">
+                <label class="block text-black mb-2 font-bold" for="area">
                     地域
                 </label>
                 <input type="text" name="area"

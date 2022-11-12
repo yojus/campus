@@ -31,10 +31,10 @@ class ClassOfferController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(ClassOffer $class_offer)
     {
         $subjects = Subject::all();
-        return view('class_offers.create', compact('subjects'));
+        return view('class_offers.create', compact('subjects', 'class_offer'));
     }
 
     /**
@@ -50,12 +50,14 @@ class ClassOfferController extends Controller
 
         try {
             $class_offer->save();
-            foreach ($request["subject_id"] as $subject) {
-                // tag保存
-                $subject_id = Subject::firstOrCreate(['name' => $subject]);
-                // 中間テーブルの保存
-                $class_offer->subjects()->attach($subject_id);
-            }
+            $class_offer->subjects()->detach();
+            $class_offer->subjects()->attach($request->subject_id);
+            // foreach ($request["subject_id"] as $subject) {
+            //     // tag保存
+            //     $subject_id = Subject::firstOrCreate(['name' => $subject]);
+            //     // 中間テーブルの保存
+            //     $class_offer->subjects()->attach($subject_id);
+            // }
         } catch (\Throwable $th) {
             return back()->withInput()
                 ->withErrors('掲載情報登録処理でエラーが発生しました');
@@ -89,9 +91,9 @@ class ClassOfferController extends Controller
         $messages = $class_offer->messages->load('user');
 
         $favorite = Favorite::with('classOffer')
-                ->where('user_id', auth()->user()->id)
-                ->where('class_offer_id', $class_offer->id)
-                ->first();
+            ->where('user_id', auth()->user()->id)
+            ->where('class_offer_id', $class_offer->id)
+            ->first();
 
         return view('class_offers.show', compact('class_offer', 'request', 'requests', 'messages', 'favorite'));
     }
@@ -125,13 +127,15 @@ class ClassOfferController extends Controller
         $class_offer->fill($request->all());
         try {
             $class_offer->save();
-            foreach ($request["subject_id"] as $subject) {
-                // tag保存
-                $subject_id = Subject::firstOrCreate(['name' => $subject]);
-                // 中間テーブルの保存
+            $class_offer->subjects()->detach();
+            $class_offer->subjects()->attach($request->subject_id);
+            // foreach ($request["subject_id"] as $subject) {
+            //     // tag保存
+            //     $subject_id = Subject::firstOrCreate(['name' => $subject]);
+            //     // 中間テーブルの保存
 
-                $class_offer->subjects()->attach($subject_id);
-            }
+            //     $class_offer->subjects()->attach($subject_id);
+            // }
         } catch (\Exception $e) {
             return back()->withInput()
                 ->withErrors('掲載情報更新処理でエラーが発生しました');

@@ -10,21 +10,20 @@
         <form action="{{ route('class_offers.store') }}" method="POST" class="rounded pt-3 pb-8 mb-4">
             @csrf
             <div class="mb-4">
-                <label class="block text-black mb-2" for="subject_id">
+                <label class="block text-black mb-2 font-bold" for="subject_id">
                     担当科目
                 </label>
-                <div
-                    class="text-black border-gray-300 focus:border-slate-900 focus:ring focus:ring-violet-600 w-full py-2 px-3">
-                    @foreach ($subjects as $subject)
+                @foreach ($subjects as $subject)
+                    <div
+                        class="text-black border-gray-300 focus:border-slate-900 focus:ring focus:ring-violet-600 w-full py-2 px-3">
                         <input type="checkbox" class="appearance-none checked:bg-slate-900 indeterminate:bg-slate-200"
-                            name="subject_id[]" value="{{ $subject->id }}"
-                            {{-- @if ($subject->id == old('subject_id')) checked @endif --}}
-                            >{{ $subject->name }}
-                    @endforeach
-                </div>
+                            name="subject_id[{{ $subject->id }}]" value="{{ $subject->id }}"
+                            {{ $subject->id == old('subject_id.' . $subject->id) ? 'checked' : '' }}>{{ $subject->name }}
+                    </div>
+                @endforeach
             </div>
             <div class="mb-4">
-                <label class="block text-black mb-2" for="school">
+                <label class="block text-black mb-2 font-bold" for="school">
                     出身校
                 </label>
                 <input type="text" name="school"
@@ -32,7 +31,7 @@
                     placeholder="出身校" value="{{ old('school') }}">
             </div>
             <div class="mb-4">
-                <label class="block text-black mb-2" for="money">
+                <label class="block text-black mb-2 font-bold" for="money">
                     時給
                 </label>
                 <input type="text" name="money"
@@ -40,7 +39,7 @@
                     placeholder="時給" value="{{ old('money') }}">
             </div>
             <div class="mb-4">
-                <label class="block text-black mb-2" for="area">
+                <label class="block text-black mb-2 font-bold" for="area">
                     地域
                 </label>
                 <input type="text" name="area"
