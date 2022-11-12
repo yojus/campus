@@ -20,7 +20,7 @@ class ClassOfferSeeder extends Seeder
         foreach ($teachers as $teacher) {
             $class_offer = ClassOffer::create([
                 'teacher_id' => $teacher->id,
-                'subject_id' => Subject::inRandomOrder()->first()->id,
+                // 'subject_id' => Subject::inRandomOrder()->first()->id,
                 'school' => 'スパルタ高校',
                 'money' => '1000円',
                 'area' => '八幡平市',

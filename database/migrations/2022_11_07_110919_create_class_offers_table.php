@@ -23,7 +23,7 @@ class CreateClassOffersTable extends Migration
             //     ->constrained()
             //     ->cascadeOnUpdate()
             //     ->cascadeOnDelete();
-            $table->string('subject_id');
+            // $table->string('subject_id');
             $table->string('school');
             $table->string('money');
             $table->string('area');

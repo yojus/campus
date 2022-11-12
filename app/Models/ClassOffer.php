@@ -20,7 +20,6 @@ class ClassOffer extends Model
     ];
 
     protected $fillable = [
-        'subject_id',
         'school',
         'money',
         'area',
@@ -29,9 +28,17 @@ class ClassOffer extends Model
     public function scopeSearch(Builder $query, $params)
     {
         if (!empty($params['subject_id'])) {
-            $query->where('subject_id', $params['subject_id']);
+            //  リレーション先のカテゴリ検索
+            $query->whereHas('subjects', function ($query) use ($params) {
+                $query->where('subjects.id', $params['subject_id']);
+            });
         }
         return $query;
+
+        // if (!empty($params['subject_id'])) {
+        //     $query->where('subject_id', $params['subject_id']);
+        // }
+        // return $query;
     }
 
     public function scopeOrder(Builder $query, $params)
