@@ -16,7 +16,7 @@ class UserController extends Controller
     public function dashboard(Request $request)
     {
         $params = $request->query();
-        $class_offers = ClassOffer::search($params)->with(['teacher', 'subject'])->order($params)->paginate(5);
+        $class_offers = ClassOffer::search($params)->with(['teacher', 'subjects'])->order($params)->paginate(5);
         $class_offers->appends($params);
         $class_offers = ClassOffer::myClassOffer($params)->paginate(5);
 

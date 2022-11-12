@@ -21,22 +21,26 @@
                                             {{ $class_offer->teacher->name }}
                                         </div>
                                     </h1>
-                                    
+
                                 </div>
                                 <div class="flex items-baseline mt-4 mb-6 pb-6 border-b border-slate-200">
                                     <div class="space-x-2 flex text-sm font-bold">
-                                        <label>
-                                            <div
-                                                class="w-9 h-9 rounded-full flex items-center justify-center bg-black text-white">
+                                        @foreach ($class_offer->subjects->pluck('name') as $item)
+                                            <label>
                                                 <div
-                                                    class="group-hover:text-black group-hover:bg-white rounded-full w-9 h-9 flex items-center justify-center">
-                                                    {{ $class_offer->subject->name }}
+                                                    class="w-9 h-9 rounded-full flex items-center justify-center bg-black text-white">
+                                                    <div
+                                                        class="group-hover:text-black group-hover:bg-white rounded-full w-9 h-9 flex items-center justify-center">
+                                                        {{-- {{ $class_offer->subjects->pluck('name')->join(', ') }} --}}
+                                                        {{ $item }}
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </label>
-                                        <div class="text-lg font-bold text-slate-900 text-violet-400 group-hover:text-white">
-                                        <h1>リクエスト: {{ $class_offer->requests->count() }}件</h1>
+                                            </label>
+                                        @endforeach
                                     </div>
+                                    <div
+                                        class="text-lg font-bold text-slate-900 text-violet-400 group-hover:text-white">
+                                        <h1>リクエスト: {{ $class_offer->requests->count() }}件</h1>
                                     </div>
                                 </div>
                                 <div class="group-hover:text-white text-2xl font-semibold">

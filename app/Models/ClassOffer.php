@@ -52,11 +52,11 @@ class ClassOffer extends Model
     {
         if (Auth::user()->can('teacher')) {
             $query->latest()
-                ->with(['requests', 'subject'])
+                ->with(['requests', 'subjects'])
                 ->where('teacher_id', Auth::user()->teacher->id);
         } else {
             $query->latest()
-                ->with(['requests', 'subject'])
+                ->with(['requests', 'subjects'])
                 ->whereHas('requests', function ($query) use ($params) {
                     $query->where('user_id', Auth::user()->id);
                 });
