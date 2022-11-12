@@ -8,20 +8,25 @@
                     <a href="/">
                         {{-- <x-jet-application-mark class="block h-9 w-auto" /> --}}
                         <span>
-                        Campus
+                            Campus
                         </span>
                     </a>
                 </div>
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-jet-nav-link href="/">
+                        {{-- {{ __('Dashboard') }} --}}
+                        <span class="hover:text-violet-400 group-hover:stroke-white">HOME</span>
+                    </x-jet-nav-link>
+                </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-jet-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                         {{-- {{ __('Dashboard') }} --}}
-                        <span class="hover:text-blue-500 group-hover:stroke-white">リクエスト一覧</span>
+                        <span class="hover:text-violet-400 group-hover:stroke-white">リクエスト</span>
                     </x-jet-nav-link>
                 </div>
             </div>
-
             <div class="hidden sm:flex sm:items-center sm:ml-6">
 
                 <!-- Settings Dropdown -->

@@ -1,16 +1,30 @@
 <x-app-layout>
-    <div class="container lg:w-3/4 md:w-4/5 w-11/12 mx-auto my-8 px-4 py-4 bg-white shadow-md">
-
+    <div class="container lg:w-3/5 md:w-3/5 w-3/5 mx-auto mt-8 px-8 bg-white shadow-md rounded-full">
         <x-flash-message :message="session('notice')" />
         <x-validation-errors :errors="$errors" />
+    </div>
+    <div class="rounded-lg container mx-auto w-3/5 mt-8 px-4 py-4 bg-white shadow-md">
+
         <link rel="stylesheet" href="{{ asset('css/top.css') }}">
-        
-        <article class="mb-2">
-            <div class="flex justify-between text-sm">
-                <div class="flex item-center">
-                    {{-- {{ dd($class_offer) }} --}}
+
+        <article class="mb-2 rounded-lg">
+            {{-- <div class="flex item-center">
                     <div class="border border-gray-900 px-2 h-7 leading-7 rounded-full">{{ $class_offer->subject->name }}
                     </div>
+                </div> --}}
+            <div class="flex-none w-56 relative">
+                @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
+                    <div><img src="{{ $class_offer->teacher->profile_photo_url }}" alt="" class="rounded-lg">
+                    </div>
+                @endif
+            </div>
+            <div class="flex flex-wrap text-sm">
+                <div class="flex-auto">
+                    <h1 class="flex-auto text-lg font-semibold text-slate-900">{{ $class_offer->teacher->name }}
+                    </h1>
+                    <p class="tracking-wide underline underline-offset-8"><b>自己紹介</b><br>
+                        <textarea style="width: 100%; height:150px" readonly>{{ $class_offer->teacher->profile }}</textarea>
+                    </p>
                 </div>
                 <div>
                     <span>on {{ $class_offer->created_at->format('Y-m-d') }}</span>
@@ -18,19 +32,9 @@
                     <b>{{ $class_offer->classOfferViews->count() }} views</b>
                 </div>
             </div>
-            <div class="flex mt-1 mb-3">
-                @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
-                    <div><img src="{{ $class_offer->teacher->profile_photo_url }}" alt=""
-                            class="h-10 w-10 rounded-full object-cover mr-3"></div>
-                @endif
-            </div>
-            <h3 class="text-lg h-10 leading-10">{{ $class_offer->teacher->name }}</h3>
-            <p class="tracking-wide underline underline-offset-8"><b>自己紹介</b><br>
-                <textarea style="width: 100%; height:150px" readonly>{{ $class_offer->teacher->profile }}</textarea>
-            </p>
-            <p class="text-gray-700 text-base tracking-wide"><b>出身校: </b>{!! nl2br(e($class_offer->school)) !!}</p>
-            <p class="text-gray-700 text-base tracking-wide"><b>時給: </b>{!! nl2br(e($class_offer->money)) !!}</p>
-            <p class="text-gray-700 text-base tracking-wide"><b>エリア: </b>{!! nl2br(e($class_offer->area)) !!}</p>
+            <p class="text-2xl font-semibold"><b>出身校: </b>{!! nl2br(e($class_offer->school)) !!}</p>
+            <p class="text-2xl font-semibold"><b>時給: </b>{!! nl2br(e($class_offer->money)) !!}</p>
+            <p class="text-2xl font-semibold"><b>エリア: </b>{!! nl2br(e($class_offer->area)) !!}</p>
             <div class="flex flex-col sm:flex-row items-center sm:justify-first text-center my-4">
                 @auth
                     @if ($favorite)
@@ -50,7 +54,6 @@
                 @endauth
                 <b>{{ $class_offer->favorites->count() }}</b>
             </div>
-
         </article>
         <div class="flex flex-col sm:flex-row items-center sm:justify-end text-center my-4">
             @can('user')
@@ -58,33 +61,33 @@
                     <form action="{{ route('class_offers.requests.store', $class_offer) }}" method="post">
                         @csrf
                         <input type="submit" value="リクエスト" onclick="if(!confirm('リクエストしますか？')){return false};"
-                            class="bg-gradient-to-r from-indigo-500 to-blue-600 hover:bg-gradient-to-l hover:from-blue-500 hover:to-indigo-600 text-gray-100 p-2 rounded-full tracking-wide font-semibold shadow-lg cursor-pointer transition ease-in duration-500 w-full sm:w-32">
+                            class="bg-slate-900 hover:bg-slate-700 active:bg-slate-600 focus:outline-none focus:ring focus:ring-violet-300 text-gray-100 p-2 rounded-full tracking-wide font-semibold shadow-lg cursor-pointer transition ease-in duration-500 w-full sm:w-32 sm:mr-2 mb-2 sm:mb-0">
                     </form>
                 @else
                     @if (App\Models\Request::STATUS_APPROVAL == $request->status)
                         @if (Route::has('requests.messages.index'))
                             <a href="{{ route('requests.messages.index', $request) }}"
-                                class="bg-gradient-to-r from-indigo-500 to-blue-600 hover:bg-gradient-to-l hover:from-blue-500 hover:to-indigo-600 text-gray-100 p-2 rounded-full tracking-wide font-semibold shadow-lg cursor-pointer transition ease-in duration-500 w-full sm:w-32 sm:mr-2 mb-2 sm:mb-0">メッセージ</a>
+                                class="bg-slate-900 hover:bg-slate-700 active:bg-slate-600 focus:outline-none focus:ring focus:ring-violet-300 text-gray-100 p-2 rounded-full tracking-wide font-semibold shadow-lg cursor-pointer transition ease-in duration-500 w-full sm:w-32 sm:mr-2 mb-2 sm:mb-0">メッセージ</a>
                         @endif
                     @endif
                     <form action="{{ route('class_offers.requests.destroy', [$class_offer, $request]) }}" method="post">
                         @csrf
                         @method('DELETE')
                         <input type="submit" value="リクエスト取消" onclick="if(!confirm('リクエストを取り消しますか？')){return false};"
-                            class="bg-gradient-to-r from-pink-500 to-purple-600 hover:bg-gradient-to-l hover:from-purple-500 hover:to-pink-600 text-gray-100 p-2 rounded-full tracking-wide font-semibold shadow-lg cursor-pointer transition ease-in duration-500 w-full sm:w-32">
+                            class="bg-violet-500 hover:bg-violet-600 active:bg-violet-700 focus:outline-none focus:ring focus:ring-violet-300 text-gray-100 p-2 rounded-full tracking-wide font-semibold shadow-lg cursor-pointer transition ease-in duration-500 w-full sm:w-32 sm:mr-2 mb-2 sm:mb-0">
                     </form>
                 @endif
             @endcan
             @can('update', $class_offer)
                 <a href="{{ route('class_offers.edit', $class_offer) }}"
-                    class="bg-gradient-to-r from-indigo-500 to-blue-600 hover:bg-gradient-to-l hover:from-blue-500 hover:to-indigo-600 text-gray-100 p-2 rounded-full tracking-wide font-semibold shadow-lg cursor-pointer transition ease-in duration-500 w-full sm:w-32 sm:mr-2 mb-2 sm:mb-0">編集</a>
+                    class="bg-slate-900 hover:bg-slate-700 active:bg-slate-600 focus:outline-none focus:ring focus:ring-violet-300 text-gray-100 p-2 rounded-full tracking-wide font-semibold shadow-lg cursor-pointer transition ease-in duration-500 w-full sm:w-32 sm:mr-2 mb-2 sm:mb-0">編集</a>
             @endcan
             @can('delete', $class_offer)
                 <form action="{{ route('class_offers.destroy', $class_offer) }}" method="post" class="w-full sm:w-32">
                     @csrf
                     @method('DELETE')
                     <input type="submit" value="削除" onclick="if(!confirm('削除しますか？')){return false};"
-                        class="bg-gradient-to-r from-pink-500 to-purple-600 hover:bg-gradient-to-l hover:from-purple-500 hover:to-pink-600 text-gray-100 p-2 rounded-full tracking-wide font-semibold shadow-lg cursor-pointer transition ease-in duration-500 w-full sm:w-32">
+                        class="bg-violet-500 hover:bg-violet-600 active:bg-violet-700 focus:outline-none focus:ring focus:ring-violet-300 text-gray-100 p-2 rounded-full tracking-wide font-semibold shadow-lg cursor-pointer transition ease-in duration-500 w-full sm:w-32 sm:mr-2 mb-2 sm:mb-0">
                 </form>
             @endcan
         </div>
@@ -139,7 +142,6 @@
             @endforeach
         </div>
         @if (!empty($requests))
-            <hr>
             <h2 class="flex justify-center font-bold text-lg my-4">リクエスト一覧</h2>
             <div class="">
                 <form method="post">
@@ -161,30 +163,31 @@
                                     <td>{{ $req->created_at->format('Y-m-d') }}</td>
                                     <td>{{ $req->status_value }}</td>
                                     <td>
-                                        <div class="flex flex-col sm:flex-row items-center sm:justify-end text-center">
+                                        <div
+                                            class="flex flex-col sm:flex-row items-center sm:justify-end text-center my-2">
                                             @if (App\Models\Request::STATUS_ENTRY == $req->status)
                                                 <input type="submit" value="承認"
                                                     formaction="{{ route('class_offers.requests.approval', [$class_offer, $req]) }}"
                                                     onclick="if(!confirm('承認しますか？')){return false};"
-                                                    class="bg-gradient-to-r from-indigo-500 to-blue-600 hover:bg-gradient-to-l hover:from-blue-500 hover:to-indigo-600 text-gray-100 p-2 rounded-full tracking-wide font-semibold shadow-lg cursor-pointer transition ease-in duration-500 w-full sm:w-32">
+                                                    class="bg-slate-900 hover:bg-slate-700 active:bg-slate-600 focus:outline-none focus:ring focus:ring-violet-300 text-gray-100 p-2 rounded-full tracking-wide font-semibold shadow-lg cursor-pointer transition ease-in duration-500 w-full sm:w-32 sm:mr-2 mb-2 sm:mb-0">
                                                 <input type="submit" value="却下"
                                                     formaction="{{ route('class_offers.requests.reject', [$class_offer, $req]) }}"
                                                     onclick="if(!confirm('却下しますか？')){return false};"
-                                                    class="bg-gradient-to-r from-pink-500 to-purple-600 hover:bg-gradient-to-l hover:from-purple-500 hover:to-pink-600 text-gray-100 p-2 rounded-full tracking-wide font-semibold shadow-lg cursor-pointer transition ease-in duration-500 w-full sm:w-32 ml-2">
+                                                    class="bg-violet-500 hover:bg-violet-600 active:bg-violet-700 focus:outline-none focus:ring focus:ring-violet-300 text-gray-100 p-2 rounded-full tracking-wide font-semibold shadow-lg cursor-pointer transition ease-in duration-500 w-full sm:w-32 sm:mr-2 mb-2 sm:mb-0">
                                             @elseif (App\Models\Request::STATUS_APPROVAL == $req->status)
                                                 @if (Route::has('requests.messages.index'))
                                                     <a href="{{ route('requests.messages.index', $req) }}"
-                                                        class="bg-gradient-to-r from-indigo-500 to-blue-600 hover:bg-gradient-to-l hover:from-blue-500 hover:to-indigo-600 text-gray-100 p-2 rounded-full tracking-wide font-semibold shadow-lg cursor-pointer transition ease-in duration-500 w-full sm:w-32 sm:mr-2 mb-2 sm:mb-0">メッセージ</a>
+                                                        class="bg-slate-900 hover:bg-slate-700 active:bg-slate-600 focus:outline-none focus:ring focus:ring-violet-300 text-gray-100 p-2 rounded-full tracking-wide font-semibold shadow-lg cursor-pointer transition ease-in duration-500 w-full sm:w-32 sm:mr-2 mb-2 sm:mb-0">メッセージ</a>
                                                 @endif
                                                 <input type="submit" value="承認済み"
                                                     formaction="{{ route('class_offers.requests.reject', [$class_offer, $req]) }}"
                                                     onclick="if(!confirm('承認を取り消しますか？')){return false};"
-                                                    class="bg-gradient-to-r from-pink-500 to-purple-600 hover:bg-gradient-to-l hover:from-purple-500 hover:to-pink-600 text-gray-100 p-2 rounded-full tracking-wide font-semibold shadow-lg cursor-pointer transition ease-in duration-500 w-full sm:w-32">
+                                                    class="bg-violet-500 hover:bg-violet-600 active:bg-violet-700 focus:outline-none focus:ring focus:ring-violet-300 text-gray-100 p-2 rounded-full tracking-wide font-semibold shadow-lg cursor-pointer transition ease-in duration-500 w-full sm:w-32 sm:mr-2 mb-2 sm:mb-0">
                                             @else
                                                 <input type="submit" value="再承認"
                                                     formaction="{{ route('class_offers.requests.approval', [$class_offer, $req]) }}"
                                                     onclick="if(!confirm('再承認しますか？')){return false};"
-                                                    class="bg-gradient-to-r from-indigo-500 to-blue-600 hover:bg-gradient-to-l hover:from-blue-500 hover:to-indigo-600 text-gray-100 p-2 rounded-full tracking-wide font-semibold shadow-lg cursor-pointer transition ease-in duration-500 w-full sm:w-32">
+                                                    class="bg-slate-900 hover:bg-slate-700 active:bg-slate-600 focus:outline-none focus:ring focus:ring-violet-300 text-gray-100 p-2 rounded-full tracking-wide font-semibold shadow-lg cursor-pointer transition ease-in duration-500 w-full sm:w-32 sm:mr-2 mb-2 sm:mb-0">
                                             @endif
                                         </div>
                                     </td>
@@ -196,10 +199,12 @@
             </div>
         @endif
     </div>
-    <div
-        class="border-t-2 border-gray-200 pt-4 mb-2 sm:mb-0 sticky bottom-0 lg:w-3/4 md:w-4/5 w-11/12 mx-auto my-8 px-4 py-4 bg-white">
+    {{-- <div class="container lg:w-3/5 md:w-3/5 w-3/5 mx-auto mt-2 px-8 bg-white shadow-md rounded-md">
+        <x-validation-errors :errors="$errors" />
+    </div> --}}
+    <div class="rounded-lg container mx-auto w-3/5 mt-2 px-4 py-4 bg-white shadow-md">
         <div class="relative flex">
-            <span class="absolute inset-y-0 flex items-center">
+            {{-- <span class="absolute inset-y-0 flex items-center">
                 <button type="button"
                     class="inline-flex items-center justify-center rounded-full h-12 w-12 transition duration-500 ease-in-out text-gray-500 hover:bg-gray-300 focus:outline-none">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
@@ -209,13 +214,13 @@
                         </path>
                     </svg>
                 </button>
-            </span>
+            </span> --}}
             <input type="hidden" id="messageable_id" name="messageable_id" value="{{ $class_offer->id }}"
                 form="sendMessage">
             <input type="text" placeholder="メッセージを入力" name="message" form="sendMessage"
                 class="w-full focus:outline-none focus:placeholder-gray-400 text-gray-600 placeholder-gray-600 pl-12 bg-gray-200 rounded-md py-3">
             <div class="absolute right-0 items-center inset-y-0 hidden sm:flex">
-                <button type="button"
+                {{-- <button type="button"
                     class="inline-flex items-center justify-center rounded-full h-10 w-10 transition duration-500 ease-in-out text-gray-500 hover:bg-gray-300 focus:outline-none">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
                         class="h-6 w-6 text-gray-600">
@@ -243,9 +248,9 @@
                             d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z">
                         </path>
                     </svg>
-                </button>
+                </button> --}}
                 <button type="submit" id="submit" form="sendMessage"
-                    class="inline-flex items-center justify-center rounded-lg px-4 py-3 transition duration-500 ease-in-out text-white bg-blue-500 hover:bg-blue-400 focus:outline-none">
+                    class="inline-flex items-center justify-center rounded-lg px-4 py-3 transition duration-500 ease-in-out text-white bg-slate-900 hover:bg-slate-700 focus:outline-none">
                     <span class="font-bold">送信</span>
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
                         class="h-6 w-6 ml-2 transform rotate-90">

@@ -1,48 +1,53 @@
 <x-app-layout>
-    <div class="container lg:w-1/2 md:w-4/5 w-11/12 mx-auto mt-8 px-8 bg-indigo-900 shadow-md rounded-md">
-        <h2 class="text-center text-lg text-white font-bold pt-6 tracking-widest">掲載情報登録</h2>
-
+    <div class="container lg:w-1/2 md:w-4/5 w-11/12 mx-auto mt-8 px-8 bg-white shadow-md rounded-md">
+        <h2 class="text-center text-lg box-border h-20 w-full bg-black text-white font-bold pt-6 tracking-widest">掲載情報登録
+        </h2>
+    </div>
+    <div class="container lg:w-1/2 md:w-4/5 w-11/12 mx-auto mt-2 px-8 bg-white shadow-md rounded-md">
         <x-validation-errors :errors="$errors" />
-
+    </div>
+    <div class="container lg:w-1/2 md:w-4/5 w-11/12 mx-auto mt-2 px-8 bg-white shadow-md rounded-md">
         <form action="{{ route('class_offers.store') }}" method="POST" class="rounded pt-3 pb-8 mb-4">
             @csrf
             <div class="mb-4">
-                <label class="block text-white mb-2" for="subject_id">
+                <label class="block text-black mb-2" for="subject_id">
                     担当科目
                 </label>
                 <div
-                    class="text-white border-gray-300 focus:border-indigo-300 focus:ring focus:ring-pink-600 w-full py-2 px-3">
+                    class="text-black border-gray-300 focus:border-slate-900 focus:ring focus:ring-violet-600 w-full py-2 px-3">
                     @foreach ($subjects as $subject)
-                        <input type="radio" name="subject_id" value="{{ $subject->id }}" @if ($subject->id == old('subject_id')) checked @endif>{{ $subject->name }}
+                        <input type="radio" class="appearance-none checked:bg-slate-900 indeterminate:bg-slate-200"
+                            name="subject_id" value="{{ $subject->id }}"
+                            @if ($subject->id == old('subject_id')) checked @endif>{{ $subject->name }}
                     @endforeach
                 </div>
             </div>
             <div class="mb-4">
-                <label class="block text-white mb-2" for="school">
+                <label class="block text-black mb-2" for="school">
                     出身校
                 </label>
                 <input type="text" name="school"
-                    class="rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-pink-600 w-full py-2 px-3"
+                    class="rounded-md shadow-sm border-gray-300 focus:border-violet-300 focus:ring-2 focus:ring-violet-600 w-full py-2 px-3"
                     placeholder="出身校" value="{{ old('school') }}">
             </div>
             <div class="mb-4">
-                <label class="block text-white mb-2" for="money">
+                <label class="block text-black mb-2" for="money">
                     時給
                 </label>
                 <input type="text" name="money"
-                    class="rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-pink-600 w-full py-2 px-3"
+                    class="rounded-md shadow-sm border-gray-300 focus:border-violet-300 focus:ring-2 focus:ring-violet-600 w-full py-2 px-3"
                     placeholder="時給" value="{{ old('money') }}">
             </div>
             <div class="mb-4">
-                <label class="block text-white mb-2" for="area">
+                <label class="block text-black mb-2" for="area">
                     地域
                 </label>
                 <input type="text" name="area"
-                    class="rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-pink-600 w-full py-2 px-3"
+                    class="rounded-md shadow-sm border-gray-300 focus:border-violet-300 focus:ring-2 focus:ring-violet-600 w-full py-2 px-3"
                     placeholder="地域" value="{{ old('area') }}">
             </div>
             <input type="submit" value="登録"
-                class="w-full flex justify-center bg-gradient-to-r from-pink-500 to-purple-600 hover:bg-gradient-to-l hover:from-purple-500 hover:to-pink-600 text-gray-100 p-2 rounded-full tracking-wide font-semibold shadow-lg cursor-pointer transition ease-in duration-500">
+                class="w-full flex justify-center bg-violet-500 hover:bg-violet-600 active:bg-violet-700 focus:outline-none focus:ring focus:ring-violet-300 text-gray-100 p-2 rounded-full tracking-wide font-semibold shadow-lg cursor-pointer transition ease-in duration-500">
         </form>
     </div>
 </x-app-layout>
