@@ -70,9 +70,9 @@ class ClassOffer extends Model
         return $this->belongsTo(Teacher::class);
     }
 
-    public function subject()
+    public function subjects()
     {
-        return $this->belongsTo(Subject::class);
+        return $this->belongsToMany(Subject::class);
     }
 
     public function classOfferViews()

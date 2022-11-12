@@ -12,6 +12,7 @@
                     <div class="border border-gray-900 px-2 h-7 leading-7 rounded-full">{{ $class_offer->subject->name }}
                     </div>
                 </div> --}}
+                {{-- {{ $class_offer->subjects }} --}}
             <div class="flex-none w-56 relative">
                 @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
                     <div><img src="{{ $class_offer->teacher->profile_photo_url }}" alt="" class="rounded-lg">

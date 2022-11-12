@@ -66,7 +66,7 @@
                 <div
                     class="text-black border-gray-300 focus:border-indigo-300 focus:ring focus:ring-pink-600 w-full py-2 px-3">
                     @foreach ($subjects as $subject)
-                        <input type="radio" class="appearance-none checked:bg-slate-900 indeterminate:bg-slate-200" name="subject_id" value="{{ $subject->id }}" {{ $subject->id == old('subject_id', $class_offer->subject_id) ? "checked" : ""}}>{{ $subject->name }}
+                        <input type="checkbox" class="appearance-none checked:bg-slate-900 indeterminate:bg-slate-200" name="subject_id" value="{{ $subject->id }}" {{ $subject->id == old('subject_id', $class_offer->subject_id) ? "checked" : ""}}>{{ $subject->name }}
                     @endforeach
                 </div>
             </div>

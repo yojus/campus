@@ -20,7 +20,7 @@ class ClassOfferController extends Controller
     public function index(ClassOffer $class_offer, Request $request)
     {
         $params = $request->query();
-        $class_offers = ClassOffer::search($params)->with(['teacher', 'subject'])->order($params)->paginate(5);
+        $class_offers = ClassOffer::search($params)->with(['teacher', 'subjects'])->order($params)->paginate(5);
         $class_offers->appends($params);
         $subjects = Subject::all();
         return view('class_offers.index', compact('class_offers', 'subjects', 'params'));
@@ -50,6 +50,12 @@ class ClassOfferController extends Controller
 
         try {
             $class_offer->save();
+            foreach ($request["subject_id"] as $subject) {
+                // tag保存
+                $subject_id = Subject::firstOrCreate(['name' => $subject]);
+                // 中間テーブルの保存
+                $class_offer->subjects()->attach($subject_id);
+            }
         } catch (\Throwable $th) {
             return back()->withInput()
                 ->withErrors('掲載情報登録処理でエラーが発生しました');
@@ -119,6 +125,13 @@ class ClassOfferController extends Controller
         $class_offer->fill($request->all());
         try {
             $class_offer->save();
+            foreach ($request["subject_id"] as $subject) {
+                // tag保存
+                $subject_id = Subject::firstOrCreate(['name' => $subject]);
+                // 中間テーブルの保存
+
+                $class_offer->subjects()->attach($subject_id);
+            }
         } catch (\Exception $e) {
             return back()->withInput()
                 ->withErrors('掲載情報更新処理でエラーが発生しました');

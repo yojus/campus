@@ -11,6 +11,6 @@ class Subject extends Model
 
     public function classOffers()
     {
-        return $this->hasMany(ClassOffer::class);
+        return $this->belongsToMany(ClassOffer::class);
     }
 }
