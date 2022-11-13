@@ -1,0 +1,14 @@
+@host = localhost
+
+### class_offers.favorites.store
+# @prompt class_offer_id
+POST /api/class_offers/{{ class_offer_id }}/favorites HTTP/1.1
+Host: {{ host }}
+Accept: application/json
+
+### class_offers.favorites.destroy
+# @prompt class_offer_id
+# @prompt favorite_id
+DELETE /api/class_offers/{{ class_offer_id }}/favorites/{{ favorite_id }} HTTP/1.1
+Host: {{ host }}
+Accept: application/json

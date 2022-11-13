@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\FavoriteController;
 use App\Http\Controllers\API\ClassOfferController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -21,3 +22,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::apiResource('class_offers', ClassOfferController::class)
     ->names('api.class_offers');
+
+Route::apiResource('class_offers.favorites', FavoriteController::class)
+    ->only(['store', 'destroy'])
+    ->names('api.class_offers.favorites');
