@@ -5,6 +5,8 @@
 POST /api/class_offers/{{ class_offer_id }}/favorites HTTP/1.1
 Host: {{ host }}
 Accept: application/json
+Authorization: Bearer {{ token }}
+
 
 ### class_offers.favorites.destroy
 # @prompt class_offer_id
@@ -12,3 +14,4 @@ Accept: application/json
 DELETE /api/class_offers/{{ class_offer_id }}/favorites/{{ favorite_id }} HTTP/1.1
 Host: {{ host }}
 Accept: application/json
+Authorization: Bearer {{ token }}

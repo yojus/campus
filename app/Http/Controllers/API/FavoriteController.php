@@ -32,8 +32,7 @@ class FavoriteController extends Controller
     {
         $favorite = new Favorite();
 
-        // $favorite->user_id = Auth::user()->id;
-        $favorite->user_id = 2;
+        $favorite->user_id = Auth::user()->id;
         
         $favorite->class_offer_id = $class_offer->id;
         

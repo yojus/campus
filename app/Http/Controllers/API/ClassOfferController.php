@@ -37,8 +37,8 @@ class ClassOfferController extends Controller
     public function store(ClassOfferRequest $request)
     {
         $class_offer = new ClassOffer($request->all());
-        // $class_offer->teacher_id = $request->user()->teacher->id;
-        $class_offer->teacher_id = 1;
+        $class_offer->teacher_id = $request->user()->teacher->id;
+
         try {
             $class_offer->save();
             // $class_offer->subjects()->detach();
@@ -105,10 +105,10 @@ class ClassOfferController extends Controller
      */
     public function update(ClassOfferRequest $request, ClassOffer $class_offer)
     {
-        // if (Auth::user()->cannot('update', $class_offer)) {
-        //     return redirect()->route('class_offers.show', $class_offer)
-        //         ->withErrors('自分の掲載情報以外は更新できません');
-        // }
+        if (Auth::user()->cannot('update', $class_offer)) {
+            return redirect()->route('class_offers.show', $class_offer)
+                ->withErrors('自分の掲載情報以外は更新できません');
+        }
         $class_offer->fill($request->all());
         try {
             $class_offer->save();
@@ -140,10 +140,10 @@ class ClassOfferController extends Controller
      */
     public function destroy(ClassOffer $class_offer)
     {
-        // if (Auth::user()->cannot('delete', $class_offer)) {
-        //     return redirect()->route('class_offers.show', $class_offer)
-        //         ->withErrors('自分の掲載情報以外は削除できません');
-        // }
+        if (Auth::user()->cannot('delete', $class_offer)) {
+            return redirect()->route('class_offers.show', $class_offer)
+                ->withErrors('自分の掲載情報以外は削除できません');
+        }
 
         try {
             $class_offer->delete();

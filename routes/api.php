@@ -16,13 +16,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
 Route::apiResource('class_offers', ClassOfferController::class)
+    ->middleware('auth:api')
     ->names('api.class_offers');
 
 Route::apiResource('class_offers.favorites', FavoriteController::class)
+    ->middleware('auth:api')
     ->only(['store', 'destroy'])
     ->names('api.class_offers.favorites');

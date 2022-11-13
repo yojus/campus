@@ -4,6 +4,7 @@
 GET /api/class_offers HTTP/1.1
 Host: {{ host }}
 Accept: application/json
+Authorization: Bearer {{ token }}
 
 
 
@@ -12,6 +13,7 @@ Accept: application/json
 GET /api/class_offers/{{ class_offer_id }}?perPage=20&page=1 HTTP/1.1
 Host: {{ host }}
 Accept: application/json
+Authorization: Bearer {{ token }}
 
 
 
@@ -20,6 +22,7 @@ Accept: application/json
 POST /api/class_offers HTTP/1.1
 Host: {{ host }}
 Accept: application/json
+Authorization: Bearer {{ token }}
 Content-Type: multipart/form-data; boundary=----storeForm
 # boundatyは送信するデータの目印
 
@@ -49,9 +52,10 @@ area
 
 ### update
 #3 @prompt file
-POST /api/class_offers/2 HTTP/1.1
+POST /api/class_offers/45 HTTP/1.1
 Host: {{ host }}
 Accept: application/json
+Authorization: Bearer {{ token }}
 Content-Type: multipart/form-data; boundary=----updateForm
 # boundatyは送信するデータの目印
 
@@ -88,3 +92,4 @@ Area
 DELETE /api/class_offers/{{ class_offer_id }} HTTP/1.1
 Host: {{ host }}
 Accept: application/json
+Authorization: Bearer {{ token }}
