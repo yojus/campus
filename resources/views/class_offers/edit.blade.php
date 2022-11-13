@@ -66,7 +66,7 @@
                 @foreach ($subjects as $subject)
                     <div
                         class="text-black border-gray-300 focus:border-indigo-300 focus:ring focus:ring-pink-600 w-full py-2 px-3">
-                        @if ($class_offer->subjects->contains('id', $subject->id))
+                        {{-- @if ($class_offer->subjects->contains('id', $subject->id))
                             <input type="checkbox"
                                 class="appearance-none checked:bg-slate-900 indeterminate:bg-slate-200"
                                 name="subject_id[]" value="{{ $subject->id }}" checked>
@@ -74,7 +74,9 @@
                             <input type="checkbox"
                                 class="appearance-none checked:bg-slate-900 indeterminate:bg-slate-200"
                                 name="subject_id[]" value="{{ $subject->id }}">
-                        @endif
+                        @endif --}}
+                        <input type="checkbox" name="subject_id[]" value="{{ $subject->id }}"
+                            {{ $subject->id == old('subject_id', $class_offer->subjects->contains('id', $subject->id) ?? '') ? 'checked' : '' }}>
                         {{ $subject->name }}
                     </div>
                 @endforeach
