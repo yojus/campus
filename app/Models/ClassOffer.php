@@ -25,6 +25,21 @@ class ClassOffer extends Model
         'area',
     ];
 
+    protected $with = [
+        // 'favorites',
+        // 'subjects',
+    ];
+    protected $appends = [
+        'favorite',
+        'subject',
+    ];
+
+    protected $hidden = [
+        'updated_at',
+        'favorites',
+        'subjects',
+    ];
+
     public function scopeSearch(Builder $query, $params)
     {
         if (!empty($params['subject_id'])) {
@@ -100,5 +115,15 @@ class ClassOffer extends Model
     public function favorites()
     {
         return $this->hasMany(Favorite::class);
+    }
+
+    public function getFavoriteAttribute()
+    {
+        return $this->favorites;
+    }
+
+    public function getSubjectAttribute()
+    {
+        return $this->subjects;
     }
 }
