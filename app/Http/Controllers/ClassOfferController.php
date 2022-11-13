@@ -50,7 +50,7 @@ class ClassOfferController extends Controller
 
         try {
             $class_offer->save();
-            $class_offer->subjects()->detach();
+            // $class_offer->subjects()->detach();
             $class_offer->subjects()->attach($request->subject_id);
             // foreach ($request["subject_id"] as $subject) {
             //     // tag保存

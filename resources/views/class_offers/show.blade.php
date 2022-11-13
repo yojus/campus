@@ -12,12 +12,27 @@
                     <div class="border border-gray-900 px-2 h-7 leading-7 rounded-full">{{ $class_offer->subject->name }}
                     </div>
                 </div> --}}
-                {{-- {{ $class_offer->subjects }} --}}
+            {{-- {{ $class_offer->subjects }} --}}
             <div class="flex-none w-56 relative">
                 @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
                     <div><img src="{{ $class_offer->teacher->profile_photo_url }}" alt="" class="rounded-lg">
                     </div>
                 @endif
+            </div>
+            <div class="flex items-baseline mt-4 mb-6 pb-6 border-b border-slate-200">
+                <div class="space-x-2 flex text-sm font-bold">
+                    @foreach ($class_offer->subjects->pluck('name') as $item)
+                        <label>
+                            <div class="w-9 h-9 rounded-full flex items-center justify-center bg-black text-white">
+                                <div
+                                    class="group-hover:text-black group-hover:bg-white rounded-full w-9 h-9 flex items-center justify-center">
+                                    {{-- {{ $class_offer->subjects->pluck('name')->join(', ') }} --}}
+                                    {{ $item }}
+                                </div>
+                            </div>
+                        </label>
+                    @endforeach
+                </div>
             </div>
             <div class="flex flex-wrap text-sm">
                 <div class="flex-auto">
