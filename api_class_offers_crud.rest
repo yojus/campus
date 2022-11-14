@@ -1,5 +1,3 @@
-@host = localhost
-
 ### index
 GET /api/class_offers HTTP/1.1
 Host: {{ host }}
@@ -52,7 +50,7 @@ area
 
 ### update
 #3 @prompt file
-POST /api/class_offers/45 HTTP/1.1
+POST /api/class_offers/1 HTTP/1.1
 Host: {{ host }}
 Accept: application/json
 Authorization: Bearer {{ token }}
