@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ClassOfferRequest;
 use App\Models\ClassOffer;
 use App\Models\Subject;
-use App\http\Requests\ClassOfferRequest;
 use App\Models\ClassOfferView;
 use App\Models\Favorite;
 use Illuminate\Http\Request;

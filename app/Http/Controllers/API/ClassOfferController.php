@@ -3,10 +3,11 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ClassOfferRequest;
 use App\Models\ClassOffer;
 use Illuminate\Http\Request;
 use App\Models\Subject;
-use App\http\Requests\ClassOfferRequest;
+
 use App\Models\ClassOfferView;
 use App\Models\Favorite;
 use Illuminate\Support\Facades\Auth;
