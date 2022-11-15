@@ -14,7 +14,8 @@
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
         "livewire/livewire": "^2.5",
-        "pusher/pusher-php-server": "^7.2"
+        "pusher/pusher-php-server": "^7.2",
+        "spatie/laravel-google-cloud-storage": "^1.0"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.7",
