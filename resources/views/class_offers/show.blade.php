@@ -6,16 +6,87 @@
     <div class="rounded-lg container mx-auto w-3/5 mt-8 px-4 py-4 bg-white shadow-md">
 
         <link rel="stylesheet" href="{{ asset('css/top.css') }}">
-
-        <article class="mb-2 rounded-lg">
-            {{-- <div class="flex item-center">
-                    <div class="border border-gray-900 px-2 h-7 leading-7 rounded-full">{{ $class_offer->subject->name }}
+        <div class="w-full">
+            <div class="rounded-lg bg-white flex font-mono">
+                <div class="flex-none w-56 relative">
+                    @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
+                        <img class="absolute inset-0 w-full h-full object-cover rounded-lg"
+                            src="{{ $class_offer->teacher->profile_photo_url }}" alt="{{ $class_offer->school }}" />
+                    @endif
+                </div>
+                <div class="flex-auto p-6 group-hover:bg-black rounded-lg">
+                    <div class="flex flex-wrap">
+                        <h1 class="flex-auto text-lg font-mono font-semibold text-slate-900">
+                            <div
+                                class="box-decoration-clone bg-black text-white text-center group-hover:text-black  group-hover:bg-white">
+                                {{ $class_offer->teacher->name }}
+                            </div>
+                        </h1>
+                        <div class="text-sm font-medium font-mono text-slate-400">
+                            <span
+                                class="group-hover:text-white font-normal ml-2">{{ $class_offer->created_at->diffForHumans() }}</span>
+                            <span class="group-hover:text-white inline-block mx-1">|</span>
+                            <span class="group-hover:text-white">{{ $class_offer->ClassOfferViews->count() }}
+                                views</span>
+                        </div>
                     </div>
-                </div> --}}
-            {{-- {{ $class_offer->subjects }} --}}
+                    <div class="flex items-baseline mt-4 mb-6 pb-6 border-b border-slate-200">
+                        <div class="space-x-2 flex text-sm font-bold">
+                            @foreach ($class_offer->subjects->pluck('name') as $item)
+                                <label>
+                                    <div
+                                        class="w-9 h-9 rounded-full flex items-center justify-center bg-black text-white">
+                                        <div
+                                            class="font-mono group-hover:text-black group-hover:bg-white rounded-full w-9 h-9 flex items-center justify-center">
+                                            {{-- {{ $class_offer->subjects->pluck('name')->join(', ') }} --}}
+                                            {{ $item }}
+                                        </div>
+                                    </div>
+                                </label>
+                            @endforeach
+                        </div>
+                    </div>
+                    {{-- underline decoration-2 decoration-sky-500 hover:text-sky-600 --}}
+                    <div class="flex flex-col space-y-4">
+                        <div class="text-2xl font-semibold font-mono"><strong>出身大学: </strong>{!! nl2br(e($class_offer->school)) !!}
+                        </div>
+                        <div class="text-2xl font-semibold font-mono"><strong>時給:
+                            </strong>{!! nl2br(e($class_offer->money)) !!}</div>
+                        <div class="text-2xl font-mono font-semibold"><strong>エリア: </strong>{!! nl2br(e($class_offer->area)) !!}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <p class="mt-4 font-mono text-md text-gray-600 group-hover:text-white">
+                <span
+                    class="font-bold underline decoration-wavy decoration-sky-500">自己紹介</span><br>{{ $class_offer->teacher->profile }}
+            </p>
+            <div class="flex flex-col sm:flex-row items-center sm:justify-end text-center my-4">
+                @auth
+                    @if ($favorite)
+                        <form action="{{ route('class_offers.favorites.destroy', [$class_offer, $favorite]) }}"
+                            method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <input type="image" src="/images/heart.jpeg" alt="" width="30" height="30">
+                        </form>
+                    @else
+                        <form action="{{ route('class_offers.favorites.store', $class_offer) }}" method="POST">
+                            @csrf
+                            <input type="image" src="/images/gray_heart.jpeg" alt="" width="30"
+                                height="30">
+                        </form>
+                    @endif
+                @endauth
+                <b>{{ $class_offer->favorites->count() }}</b>
+            </div>
+            <hr>
+        </div>
+        {{-- <article class="mb-2 rounded-lg">
             <div class="flex-none w-56 relative">
                 @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
-                    <div><img src="{{ $class_offer->teacher->profile_photo_url }}" alt="" class="rounded-lg">
+                    <div class="flex-none w-56 relative"><img src="{{ $class_offer->teacher->profile_photo_url }}" alt="" class="rounded-lg">
                     </div>
                 @endif
             </div>
@@ -26,7 +97,6 @@
                             <div class="w-9 h-9 rounded-full flex items-center justify-center bg-black text-white">
                                 <div
                                     class="group-hover:text-black group-hover:bg-white rounded-full w-9 h-9 flex items-center justify-center">
-                                    {{-- {{ $class_offer->subjects->pluck('name')->join(', ') }} --}}
                                     {{ $item }}
                                 </div>
                             </div>
@@ -51,26 +121,9 @@
             <p class="text-2xl font-semibold"><b>出身校: </b>{!! nl2br(e($class_offer->school)) !!}</p>
             <p class="text-2xl font-semibold"><b>時給: </b>{!! nl2br(e($class_offer->money)) !!}</p>
             <p class="text-2xl font-semibold"><b>エリア: </b>{!! nl2br(e($class_offer->area)) !!}</p>
-            <div class="flex flex-col sm:flex-row items-center sm:justify-first text-center my-4">
-                @auth
-                    @if ($favorite)
-                        <form action="{{ route('class_offers.favorites.destroy', [$class_offer, $favorite]) }}"
-                            method="POST">
-                            @csrf
-                            @method('DELETE')
-                            <input type="image" src="/images/heart.jpeg" alt="" width="30" height="30">
-                        </form>
-                    @else
-                        <form action="{{ route('class_offers.favorites.store', $class_offer) }}" method="POST">
-                            @csrf
-                            <input type="image" src="/images/gray_heart.jpeg" alt="" width="30"
-                                height="30">
-                        </form>
-                    @endif
-                @endauth
-                <b>{{ $class_offer->favorites->count() }}</b>
-            </div>
-        </article>
+            
+        </article> --}}
+
         <div class="flex flex-col sm:flex-row items-center sm:justify-end text-center my-4">
             @can('user')
                 @if (empty($request))
@@ -220,7 +273,7 @@
     </div> --}}
     <div class="rounded-lg container mx-auto w-3/5 mt-2 px-4 py-4 bg-white shadow-md">
         <div class="relative flex">
-            {{-- <span class="absolute inset-y-0 flex items-center">
+            <span class="absolute inset-y-0 flex items-center">
                 <button type="button"
                     class="inline-flex items-center justify-center rounded-full h-12 w-12 transition duration-500 ease-in-out text-gray-500 hover:bg-gray-300 focus:outline-none">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
@@ -230,11 +283,11 @@
                         </path>
                     </svg>
                 </button>
-            </span> --}}
+            </span>
             <input type="hidden" id="messageable_id" name="messageable_id" value="{{ $class_offer->id }}"
                 form="sendMessage">
             <input type="text" placeholder="メッセージを入力" name="message" form="sendMessage"
-                class="w-full focus:outline-none focus:placeholder-gray-400 text-gray-600 placeholder-gray-600 pl-12 bg-gray-200 rounded-md py-3">
+                class="w-full focus:outline-none focus:placeholder-gray-700 text-gray-600 placeholder-gray-600 pl-12 bg-gray-100 rounded-md py-3">
             <div class="absolute right-0 items-center inset-y-0 hidden sm:flex">
                 {{-- <button type="button"
                     class="inline-flex items-center justify-center rounded-full h-10 w-10 transition duration-500 ease-in-out text-gray-500 hover:bg-gray-300 focus:outline-none">
@@ -266,8 +319,8 @@
                     </svg>
                 </button> --}}
                 <button type="submit" id="submit" form="sendMessage"
-                    class="inline-flex items-center justify-center rounded-lg px-4 py-3 transition duration-500 ease-in-out text-white bg-slate-900 hover:bg-slate-700 focus:outline-none">
-                    <span class="font-bold">送信</span>
+                    class="inline-flex items-center justify-center rounded-lg px-4 py-3 transition duration-500 ease-in-out text-white bg-cyan-500 hover:bg-cyan-600 focus:outline-none">
+                    <span class="font-bold"></span>
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
                         class="h-6 w-6 ml-2 transform rotate-90">
                         <path

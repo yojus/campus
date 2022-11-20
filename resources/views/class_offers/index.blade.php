@@ -3,7 +3,7 @@
 
         <x-flash-message :message="session('notice')" />
 
-        <div class="flex justify-end items-center mb-3">
+        <div class="flex justify-end items-center mb-3 font-mono">
             <h4 class="text-gray-400 text-sm">並び替え</h4>
             <ul class="flex">
                 @foreach (App\Models\ClassOffer::SORT_LIST as $value => $name)
@@ -17,7 +17,7 @@
                 @endforeach
             </ul>
         </div>
-        <div class="flex justify-between">
+        <div class="flex justify-between font-mono">
             <div class="w-1/6">
                 <h3 class="mb-3 text-gray-400 text-sm">検索条件</h3>
                 <ul>
@@ -41,7 +41,7 @@
                 @foreach ($class_offers as $class_offer)
                     <a href="{{ route('class_offers.show', $class_offer) }}"
                         class="group hover:bg-black rounded-lg ring-2 ring-inset ring-black">
-                        <div class="rounded-lg bg-white flex font-sans">
+                        <div class="rounded-lg bg-white flex font-mono">
                             <div class="flex-none w-56 relative">
                                 @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
                                     <img class="absolute inset-0 w-full h-full object-cover rounded-lg"
@@ -83,7 +83,7 @@
                                     </div>
                                 </div>
                                 <div class="group-hover:text-white text-2xl font-semibold">
-                                    出身校: {{ $class_offer->school }}
+                                    出身大学: {{ $class_offer->school }}
                                 </div>
                                 <br>
                                 <div class="group-hover:text-white text-2xl font-semibold">

@@ -5,7 +5,7 @@
                 @foreach ($class_offers as $class_offer)
                     <a href="{{ route('class_offers.show', $class_offer) }}"
                         class="group hover:bg-black hover:ring-sky-500">
-                        <div class="bg-white flex font-sans">
+                        <div class="bg-white flex font-mono">
                             <div class="flex-none w-56 relative">
                                 @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
                                     <img class="absolute inset-0 w-full h-full object-cover rounded-lg"
@@ -21,7 +21,20 @@
                                             {{ $class_offer->teacher->name }}
                                         </div>
                                     </h1>
-
+                                    <div class="text-sm font-medium text-slate-400">
+                                        <span
+                                            class="group-hover:text-white font-normal ml-2">{{ $class_offer->created_at->diffForHumans() }}</span>
+                                        <span class="group-hover:text-white inline-block mx-1">|</span>
+                                        <span
+                                            class="group-hover:text-white">{{ $class_offer->ClassOfferViews->count() }}
+                                            views</span>
+                                    </div>
+                                </div>
+                                <div class="flex items-baseline mt-4 mb-6 pb-6 border-b border-slate-200">
+                                    <div
+                                        class="flex space-y-4 text-lg font-bold text-slate-900 text-violet-400 group-hover:text-white">
+                                        <h1>リクエスト: {{ $class_offer->requests->count() }}件</h1>
+                                    </div>
                                 </div>
                                 <div class="flex items-baseline mt-4 mb-6 pb-6 border-b border-slate-200">
                                     <div class="space-x-2 flex text-sm font-bold">
@@ -38,10 +51,7 @@
                                             </label>
                                         @endforeach
                                     </div>
-                                    <div
-                                        class="text-lg font-bold text-slate-900 text-violet-400 group-hover:text-white">
-                                        <h1>リクエスト: {{ $class_offer->requests->count() }}件</h1>
-                                    </div>
+
                                 </div>
                                 <div class="group-hover:text-white text-2xl font-semibold">
                                     出身校: {{ $class_offer->school }}
