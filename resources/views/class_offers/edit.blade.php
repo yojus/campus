@@ -49,13 +49,13 @@
 </x-app-layout> --}}
 <x-app-layout>
     <div class="container lg:w-1/2 md:w-4/5 w-11/12 mx-auto mt-8 px-8 bg-white shadow-md rounded-md">
-        <h2 class="text-center text-lg box-border h-20 w-full bg-black text-white font-bold pt-6 tracking-widest">掲載情報編集
+        <h2 class="text-center text-lg box-border h-20 w-full bg-black text-white font-bold font-mono pt-6 tracking-widest">掲載情報編集
         </h2>
     </div>
     <div class="container lg:w-1/2 md:w-4/5 w-11/12 mx-auto mt-2 px-8 bg-white shadow-md rounded-full">
         <x-validation-errors :errors="$errors" />
     </div>
-    <div class="container lg:w-1/2 md:w-4/5 w-11/12 mx-auto mt-2 px-8 bg-white shadow-md rounded-md">
+    <div class="container lg:w-1/2 md:w-4/5 w-11/12 mx-auto mt-2 px-8 bg-white shadow-md rounded-md font-mono">
         <form action="{{ route('class_offers.update', $class_offer) }}" method="POST" class="rounded pt-3 pb-8 mb-4">
             @csrf
             @method('PUT')
