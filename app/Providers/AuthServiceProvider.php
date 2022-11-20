@@ -2,8 +2,12 @@
 
 namespace App\Providers;
 
+use App\Models\Request;
+use App\Models\User;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
+use Laravel\Passport\Passport;
+
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -25,6 +29,21 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        if (! $this->app->routesAreCached()) {
+            Passport::routes();
+        };
+
+        Gate::define('teacher', function (User $user) {
+            return isset($user->teacher);
+        });
+
+        Gate::define('user', function (User $user) {
+            return !(isset($user->teacher));
+        });
+
+        Gate::define('message', function (User $user, Request $req) {
+            return $user->id === $req->user_id
+                || $user->id === $req->classOffer->teacher->user_id;
+        });
     }
 }

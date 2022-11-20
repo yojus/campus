@@ -1,0 +1,93 @@
+### index
+GET /api/class_offers HTTP/1.1
+Host: {{ host }}
+Accept: application/json
+Authorization: Bearer {{ token }}
+
+
+
+### show
+# @prompt class_offer_id
+GET /api/class_offers/{{ class_offer_id }}?perPage=20&page=1 HTTP/1.1
+Host: {{ host }}
+Accept: application/json
+Authorization: Bearer {{ token }}
+
+
+
+### store
+#3 @prompt file
+POST /api/class_offers HTTP/1.1
+Host: {{ host }}
+Accept: application/json
+Authorization: Bearer {{ token }}
+Content-Type: multipart/form-data; boundary=----storeForm
+# boundatyは送信するデータの目印
+
+
+------storeForm
+Content-Disposition: application/json; name="subject_id[]"
+
+1
+------storeForm
+Content-Disposition: application/json; name="subject_id[]"
+
+2
+------storeForm
+Content-Disposition: form-data; name="school"
+
+school
+------storeForm
+Content-Disposition: form-data; name="money"
+
+money
+------storeForm
+Content-Disposition: form-data; name="area"
+
+area
+------storeForm--
+
+
+### update
+#3 @prompt file
+POST /api/class_offers/1 HTTP/1.1
+Host: {{ host }}
+Accept: application/json
+Authorization: Bearer {{ token }}
+Content-Type: multipart/form-data; boundary=----updateForm
+# boundatyは送信するデータの目印
+
+------updateForm
+Content-Disposition: form-data; name="_method"
+
+PATCH
+------updateForm
+Content-Disposition: application/json; name="subject_id[]"
+
+1
+------updateForm
+Content-Disposition: application/json; name="subject_id[]"
+
+2
+------updateForm
+Content-Disposition: form-data; name="school"
+
+School
+------updateForm
+Content-Disposition: form-data; name="money"
+
+Money
+------updateForm
+Content-Disposition: form-data; name="area"
+
+Area
+------updateForm--
+
+
+
+### destroy
+# @prompt class_offer_id
+DELETE /api/class_offers/{{ class_offer_id }} HTTP/1.1
+Host: {{ host }}
+Accept: application/json
+Authorization: Bearer {{ token }}
